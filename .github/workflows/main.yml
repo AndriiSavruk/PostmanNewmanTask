@@ -1,44 +1,62 @@
-name: Test-Build
+# name: Test-Build
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   test-api:
+#     runs-on: ubuntu-latest
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v4
+
+
+#       # INstall Node on the runner
+#       - name: Install Node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: "18.x"
+
+
+#       # Install the newman command line utility and also install the html extra reporter
+#       - name: Install newman
+#         run: |
+#           npm install -g newman
+#           npm install -g newman-reporter-htmlextra
+
+
+#       # Make directory to upload the test results
+#       - name: Make Directory for results
+#         run: mkdir -p testResults
+
+
+#       # Run the POSTMAN collection
+#       - name: Run POSTMAN collection
+#         run: |
+#           newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
+
+
+#       # Upload the contents of Test Results directory to workspace
+#       - name: Output the run Details
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: RunReports
+#           path: testResults 
+
+name: Newman Run
+
 on:
-  push:
+  pull_request:
     branches:
-      - main
+    - master
+
 jobs:
-  test-api:
+  newman:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-
-      # INstall Node on the runner
-      - name: Install Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@master
+      - uses: matt-ball/newman-action@master
         with:
-          node-version: "18.x"
-
-
-      # Install the newman command line utility and also install the html extra reporter
-      - name: Install newman
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
-
-
-      # Make directory to upload the test results
-      - name: Make Directory for results
-        run: mkdir -p testResults
-
-
-      # Run the POSTMAN collection
-      - name: Run POSTMAN collection
-        run: |
-          newman run petstore.collection.json -e htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
-
-
-      # Upload the contents of Test Results directory to workspace
-      - name: Output the run Details
-        uses: actions/upload-artifact@v2
-        with:
-          name: RunReports
-          path: testResults 
+          apiKey: ${{ secrets.postmanApiKey }}
+          collection: postman_collection.json
+          environment: 5922408-228c7edd-fc15-4f68-9665-a35d7df6945b
