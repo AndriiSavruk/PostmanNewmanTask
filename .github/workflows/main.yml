@@ -14,6 +14,6 @@ jobs:
         with:
           collection: petstore.collection.json
           # reporters: '["emojitrain"]'
-          reporters: '["cli","html"]'
+          reporters: 'cli'
           delayRequest: 5000
          
