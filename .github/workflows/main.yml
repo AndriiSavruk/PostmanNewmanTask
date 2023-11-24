@@ -57,6 +57,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: matt-ball/newman-action@master
         with:
-  
           collection: petstore.collection.json
+          reporters: '["emojitrain"]'
+          delayRequest: 5000
          
