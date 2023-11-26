@@ -13,6 +13,6 @@ jobs:
       - uses: matt-ball/newman-action@master
         with:
           collection: petstore.collection.json 
-          reporters: '["json"]'
+          reporters: '["emojitrain"]'
           delayRequest: 5000
          
