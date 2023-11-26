@@ -13,7 +13,7 @@ jobs:
       - uses: matt-ball/newman-action@master
         with:
           collection: petstore.collection.json 
-          # reporters: '["emojitrain"]'
-          reporters : '{ html : { export : "./htmlResults.html", template: "./customTemplate.hbs" } }'
+          reporters: '["emojitrain"]'
+          # reporter : '{ html : { export : "./htmlResults.html", template: "./customTemplate.hbs" } }'
           delayRequest: 5000
          
